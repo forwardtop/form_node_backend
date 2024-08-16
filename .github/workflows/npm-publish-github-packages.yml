@@ -21,10 +21,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18  
-      - name: Cache Clean
-        run: npm cache clean --force
-      - name: Install dependencies
-        run: yarn install
+      
 
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
@@ -35,5 +32,9 @@ jobs:
           server-dir: /staff.businessmadebetter.com.au/nodeapp
           local-dir: /
           port: 21  
+      - name: Cache Clean
+        run: npm cache clean --force
+      - name: Install dependencies
+        run: yarn install
       - name: Run Node
         run: nodemon app.js
