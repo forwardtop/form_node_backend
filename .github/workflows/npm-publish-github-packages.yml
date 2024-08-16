@@ -36,7 +36,7 @@ jobs:
         run: npm cache clean --force
       - name: Install dependencies
         run: yarn install
-      - name: Path Change
-        run: cd nodeapp
       - name: Run Node
-        run: nodemon app.js
+        run: |
+          cd nodeapp
+          nodemon app.js
