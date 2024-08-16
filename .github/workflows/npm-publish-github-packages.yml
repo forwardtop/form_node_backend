@@ -37,6 +37,4 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Run Node
-        run: |
-          cd nodeapp
-          nodemon app.js
+        run: nodemon app.js
