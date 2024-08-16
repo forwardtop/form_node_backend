@@ -14,14 +14,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: docker system prune -a
-        run : docker system prune -a
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 18  
-      
 
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
@@ -32,9 +29,16 @@ jobs:
           server-dir: /staff.businessmadebetter.com.au/nodeapp/
           local-dir: ./
           port: 21  
+
       - name: Cache Clean
         run: npm cache clean --force
-      - name: Install dependencies
-        run: yarn install
-      - name: Run Node
-        run: node app.js
+        
+      - name: Run pm2 commands
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /staff.businessmadebetter.com.au/nodeapp/
+            npm install
+            pm2 stop app || true
+            pm2 start app.js --name app
+            pm2 save
+          EOF
