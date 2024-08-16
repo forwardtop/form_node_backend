@@ -30,7 +30,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           server-dir: /staff.businessmadebetter.com.au/nodeapp/
-          local-dir: /
+          local-dir: ./
           port: 21  
       - name: Cache Clean
         run: npm cache clean --force
